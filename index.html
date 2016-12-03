@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="css/owfont-regular.css">
+    <link rel="stylesheet" href="css/gstyle.css">
+</head>
+<body>
+<!--white-->
+<div id="whole">
+    <!--title pink-->
+    <div class="title">
+        <span id="country"></span>,
+        <span id="location"></span>
+
+    </div>
+
+    <!--parameter display  red-->
+    <div class="main-part">
+
+        <div class="icon">
+            <i class=""></i>
+            <!--<i>gosfsd</i>-->
+        </div>
+
+        <div class="para">
+            Temparature:<span id="temp"></span><a id="toggle" href="javascript:void(0)">℃</a><br>
+            General Status:<span id="description"></span><br>
+            Wind Speed: <span id="speed"></span> kn <br>
+            Pressure:<span id="pressure"></span> hPa<br>
+            Humility:<span id="humility"></span> g/m<sup>3</sup><br>
+        </div>
+
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            var ce,fa;
+            var output = document.getElementById("whole");
+            if (!navigator.geolocation) {
+                $("#whole").html("<p>Your brower is not supported</p>");
+                return;
+            }
+
+                function success(position) {
+                var lan = position.coords.latitude;
+                var lon = position.coords.longitude;
+
+                $.ajax({
+                    url: "http://api.openweathermap.org/data/2.5/weather?lat=" + lan + "&lon=" + lon + "&APPID=f06e25b1205b65171ad01524870cbb01",
+                    success: function (data) {
+                            var dayOrNight = data.weather[0].icon.charAt(2);
+                        $("#country").text(data.sys.country);
+                        $("#location").text(data.name);
+                        $("i").attr("class", "owf owf-" + data.cod + "-" + dayOrNight + " owf-5x");
+                        ce = Math.round(data.main.temp - 273.15);
+                        fa = Math.round(ce * 1.8 + 32);
+                        $("#temp").text( ce );
+                        $("#description").text(data.weather[0].description);
+                        $("#speed").text(data.wind.speed);
+                        $("#pressure").text(data.main.pressure);
+                        $("#humility").text(data.main.humidity);
+
+
+                    }
+                });
+            }
+
+            function error() {
+                output.innerHTML = "Unable to retrieve your location";
+            }
+
+            navigator.geolocation.getCurrentPosition(success, error);
+
+
+            $("a").on("click", function () {
+                if ($(this).text() == "℃") {
+                    $(this).html("℉");
+                    $("#temp").text(fa);
+                } else {
+                    $(this).html("℃");
+                    $("#temp").text(ce);
+                }
+            });
+
+        });
+    </script>
+</div>
+</body>
+</html>
+
