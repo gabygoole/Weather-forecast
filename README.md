@@ -1,5 +1,5 @@
 ### 示意图
-![img]((https://github.com/gabygoole/Weather-forecast/blob/master/diagram/pho.png))
+![img](https://github.com/gabygoole/Weather-forecast/blob/master/diagram/pho.png)
 
 ### 用到的库
 1.[owfont-OpenWeatherMap的icon替代品](http://websygen.github.io/owfont/#usage)<br>
