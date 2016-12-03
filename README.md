@@ -1,9 +1,9 @@
 ### 示意图
-
+![img]((http://github.com/gabygoole/Weather-forecast/tree/master/diagram/pho.png))
 
 ### 用到的库
-1.[owfont-OpenWeatherMap的icon替代品](http://websygen.github.io/owfont/#usage)
-2.JQuery
+1.[owfont-OpenWeatherMap的icon替代品](http://websygen.github.io/owfont/#usage)<br>
+2.JQuery<br>
 3.[天气API](https://openweathermap.org/current#geo)
 
 ### 注意事项
